@@ -23,7 +23,7 @@ int main()
   while (1)
   {
     string a;
-    cout << "Typing something: " << endl;
+    cout << "\nTyping something: " << endl;
     getline(cin,a);
     fflush(stdin);
 
@@ -32,10 +32,12 @@ int main()
     unique_lock<mutex> lck(mtx_recv);
     cv_recv.wait(lck, []() { return flag_recv; });
     mtx_sto.lock();
+    flag_recv=false;
     while (gl_vstr.size() != 0)
     {
       cout<<gl_vstr.back()<<endl;
       gl_vstr.pop_back();
+      
     }
     mtx_sto.unlock();
   }
